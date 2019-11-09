@@ -1,0 +1,55 @@
+* AWS CI/CD SageMkaer Pipeline 
+UNDER CONSTRUCTION
+** Introduction
+This is the capstone project for the MLops Workshop TODO run by AISC TODO For Fall 2019. A simple but complete CI/CD pipeline is created to build and test a model. 
+** Prerequisites
+1) AWS account – Follow these instructions to create an AWS Account: [[http://docs.aws.amazon.com/AmazonSimpleDB/latest/DeveloperGuide/AboutAWSAccounts.html][Create an AWS Account]]
+2) AWS command line tool
+   - install via `pip install aws`
+   - configure with `aws configure`. See instructions here TODO
+3) GitHub OAuth Token – Follow these instructions to create an OAuth Token: [[https://github.com/stelligent/devops-essentials/wiki/Prerequisites#create-an-oauth-token-in-github][Create a GitHub OAuth Token]]
+4) A Github repository for the model code. The pipeline requires a certain structure for the model repository (see below)
+** Model Repository Structure
+The sample model used to test the pipeline is located here TODO. You can use this sample model as a template for your own.  
+The requirements are:
+1) training configuration file is in `/configuration/trainingjob.json`
+   - see AWS Docs TODO to understand how to compose this configuration 
+2) the hyperparameter tuning job is  `/configuration/tuning.json`
+   - see AWS Docs TODO to understand how to compose this configuration 
+3) entrypoint for training TODO
+4) entrypoint for testing / production inference TODO  
+** Creating Pipeline
+The pipeline is launched by running `launch-pipeline.sh` from a shell. There are parameters that need to be filled in in order to run:
+1) AWS Account Information:
+   ```
+   AWS_DEFAULT_REGION="<Enter AWS Region your are using, ie us-east-1>"
+   Email="<Enter Your Email>"
+   ```
+2) Model Repository Information: 
+   ```
+   - GitHub_User="<Enter Github Username>"
+   - GitHub_Repo="<Enter Github Repository Name>"
+   - GitHub_Branch="<Enter Repository Branch Name>"
+   - GitHub_Token="<Enter Github Personal Access Token>"
+	 ```
+
+There are also parameters that have included defaults, they can be optionally adjusted: 
+1) CodeBuild Project Parameters
+   ```
+	 Python_Build_Version="aws/codebuild/python:3.6.-3.5"
+	 Build_Timeout_Mins=30
+	 ```
+2) SageMaker Training Job Parameters
+   ```
+   Instance_Count=1
+   Instance_Type="ml.m4.xlarge"
+   Max_Runtime_In_Seconds=86400
+   Vol_In_GB=60
+   ```
+** Credits
+Example pipeline projects used for reference, and for code snippets, were:
+- TODO Waheed, and
+- TODO stelligent
+Credit and thanks are given to the authors. The project members for this capstone are:
+- Jiri, Lediona, Willy TODO 
+
